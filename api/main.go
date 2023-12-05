@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -22,10 +23,11 @@ func main() {
 }
 
 func handler(c *gin.Context) {
+	time := time.Now().Format("2000-12-01 12:23:30 pm")
 	host := os.Getenv("HOSTNAME")
 	c.Header("Content-Type", "text/plain")
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.Header("Access-Control-Allow-Methods", "GET")
 	c.Header("Access-Control-Allow-Headers", "Content-Type, X-Auth-Token, Origin, Authorization")
-	c.IndentedJSON(http.StatusOK, fmt.Sprintf("Accepted %s", host))
+	c.IndentedJSON(http.StatusOK, fmt.Sprintf("Accepted %s - Time %s", host, time))
 }
